@@ -2,6 +2,8 @@
 
 A fun, toilet-themed web app that lets anyone call the permissionless `flush()` function on the [BETH](https://beth.ethcf.org/) contract to burn force-sent ETH.
 
+![Flush ETH Screenshot](./public/screenshot.png)
+
 ## What is This?
 
 The BETH contract can receive force-sent ETH (via `selfdestruct` or other means) that doesn't mint tokens. The `flush()` function is **permissionless** - anyone can call it to forward that ETH to the burn address `0x0000...0000`.
