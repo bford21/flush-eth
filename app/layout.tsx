@@ -23,6 +23,9 @@ const bangers = Bangers({
 export const metadata: Metadata = {
   title: "Flush ETH 🚽",
   description: "Flush ETH down the proverbial toilet.",
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🚽</text></svg>",
+  },
 };
 
 export default function RootLayout({

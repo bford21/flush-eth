@@ -22,6 +22,43 @@ export default function Home() {
     chainId: currentNetwork === 'mainnet' ? mainnet.id : sepolia.id,
   });
 
+  // Calculate number of ETH logos based on flushable amount
+  const getLogoCount = () => {
+    if (!contractBalance || contractBalance.value === BigInt(0)) return 0;
+    const ethAmount = parseFloat(formatEther(contractBalance.value));
+    // 1 logo for any amount > 0, then +1 for every 0.001 ETH
+    return Math.max(1, Math.floor(ethAmount / 0.001));
+  };
+
+  const logoCount = getLogoCount();
+
+  // Generate logo positions dynamically
+  const generateLogoPositions = () => {
+    const positions = [];
+    const count = Math.min(logoCount, 20); // Cap at 20 logos for performance
+    
+    for (let i = 0; i < count; i++) {
+      // Distribute logos in water area (bottom 20-40%)
+      const angle = (i / count) * Math.PI * 2;
+      const radius = 15 + (i % 3) * 10; // Vary radius for depth
+      const bottomPos = 20 + ((i % 4) * 5); // Between 20-35%
+      const leftPos = 50 + Math.cos(angle) * radius; // Circular distribution
+      
+      positions.push({
+        id: i,
+        bottom: `${bottomPos}%`,
+        left: `${leftPos}%`,
+        size: i === 0 ? 'w-24 h-24' : i % 2 === 0 ? 'w-20 h-20' : 'w-16 h-16',
+        floatAnimation: `animate-eth-float-${(i % 3) + 1}`,
+        delay: (i * 0.1).toFixed(2) + 's'
+      });
+    }
+    
+    return positions;
+  };
+
+  const logoPositions = generateLogoPositions();
+
   // Write flush function
   const { writeContract, isPending, isSuccess, error } = useWriteContract();
 
@@ -60,29 +97,8 @@ export default function Home() {
     }
   };
 
-  const handleTestFlush = () => {
-    setIsFlushAnimating(true);
-    // Play flushing sound
-    const audio = new Audio('/toilet-flushing.mp3');
-    audio.play().catch(err => console.error('Error playing sound:', err));
-    
-    setTimeout(() => {
-      setIsFlushAnimating(false);
-    }, 4000);
-  };
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-slate-900 to-gray-950 p-4 relative">
-      {/* Test Flush Button - Top Left */}
-      <div className="absolute top-6 left-6 z-10">
-        <button
-          onClick={handleTestFlush}
-          className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold shadow-lg transition-all"
-        >
-          🧪 Test Flush
-        </button>
-      </div>
-
       {/* Wallet Connection - Top Right */}
       <div className="absolute top-6 right-6 z-10">
         <ConnectButton />
@@ -144,40 +160,22 @@ export default function Home() {
                   </div>
                 )}
                 
-                {/* Multiple ETH Logos - floating in water, always visible */}
+                {/* Dynamic ETH Logos - floating in water based on flushable amount */}
                 <>
-                  {/* Center Logo - in water */}
-                  <div className={`absolute bottom-[25%] left-1/2 -translate-x-1/2 z-10 ${isFlushAnimating ? 'animate-eth-drain' : 'animate-eth-float'}`}>
-                    <img src="/eth-logo.png" alt="ETH" className="w-24 h-24 object-contain" />
-                  </div>
-                  {/* Center Top - edge of water */}
-                  <div className={`absolute bottom-[35%] left-1/2 -translate-x-1/2 z-10 ${isFlushAnimating ? 'animate-eth-drain' : 'animate-eth-float-2'}`} style={isFlushAnimating ? { animationDelay: '0.1s' } : {}}>
-                    <img src="/eth-logo.png" alt="ETH" className="w-20 h-20 object-contain" />
-                  </div>
-                  {/* Right Side - in water */}
-                  <div className={`absolute bottom-[28%] right-[20%] z-10 ${isFlushAnimating ? 'animate-eth-drain' : 'animate-eth-float-3'}`} style={isFlushAnimating ? { animationDelay: '0.2s' } : {}}>
-                    <img src="/eth-logo.png" alt="ETH" className="w-20 h-20 object-contain" />
-                  </div>
-                  {/* Left Side - in water */}
-                  <div className={`absolute bottom-[28%] left-[20%] z-10 ${isFlushAnimating ? 'animate-eth-drain' : 'animate-eth-float'}`} style={isFlushAnimating ? { animationDelay: '0.15s' } : {}}>
-                    <img src="/eth-logo.png" alt="ETH" className="w-20 h-20 object-contain" />
-                  </div>
-                  {/* Bottom Right - deeper in water */}
-                  <div className={`absolute bottom-[20%] right-[25%] z-10 ${isFlushAnimating ? 'animate-eth-drain' : 'animate-eth-float-2'}`} style={isFlushAnimating ? { animationDelay: '0.25s' } : {}}>
-                    <img src="/eth-logo.png" alt="ETH" className="w-18 h-18 object-contain" />
-                  </div>
-                  {/* Bottom Left - deeper in water */}
-                  <div className={`absolute bottom-[20%] left-[25%] z-10 ${isFlushAnimating ? 'animate-eth-drain' : 'animate-eth-float-3'}`} style={isFlushAnimating ? { animationDelay: '0.3s' } : {}}>
-                    <img src="/eth-logo.png" alt="ETH" className="w-18 h-18 object-contain" />
-                  </div>
-                  {/* Right Edge - water surface */}
-                  <div className={`absolute bottom-[32%] right-[15%] z-10 ${isFlushAnimating ? 'animate-eth-drain' : 'animate-eth-float'}`} style={isFlushAnimating ? { animationDelay: '0.05s' } : {}}>
-                    <img src="/eth-logo.png" alt="ETH" className="w-16 h-16 object-contain" />
-                  </div>
-                  {/* Left Edge - water surface */}
-                  <div className={`absolute bottom-[32%] left-[15%] z-10 ${isFlushAnimating ? 'animate-eth-drain' : 'animate-eth-float-2'}`} style={isFlushAnimating ? { animationDelay: '0.12s' } : {}}>
-                    <img src="/eth-logo.png" alt="ETH" className="w-16 h-16 object-contain" />
-                  </div>
+                  {logoPositions.map((logo) => (
+                    <div
+                      key={logo.id}
+                      className={`absolute z-10 ${isFlushAnimating ? 'animate-eth-drain' : logo.floatAnimation}`}
+                      style={{
+                        bottom: logo.bottom,
+                        left: logo.left,
+                        transform: 'translateX(-50%)',
+                        animationDelay: isFlushAnimating ? logo.delay : undefined
+                      }}
+                    >
+                      <img src="/eth-logo.png" alt="ETH" className={`${logo.size} object-contain`} />
+                    </div>
+                  ))}
                 </>
               </div>
             </div>

@@ -409,3 +409,7 @@ body {
 .animate-eth-float-3 {
   animation: ethFloat3 4s ease-in-out infinite;
 }
+
+.animate-eth-float-1 {
+  animation: ethFloat 3s ease-in-out infinite;
+}
