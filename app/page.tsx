@@ -111,7 +111,7 @@ export default function Home() {
             Flush ETH
           </h1>
           <p className="text-base sm:text-xl md:text-2xl text-gray-300 max-w-xl px-4">
-            Digital money meets digital drain
+            Digital money meets a digital drain
           </p>
           
           {/* Toilet Bowl - Top Down View */}

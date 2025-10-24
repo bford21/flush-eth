@@ -1,6 +1,6 @@
 # Flush ETH 🚽
 
-A fun, toilet-themed web app that lets anyone call the permissionless `flush()` function on the [BETH](https://beth.ethcf.org/) contract to burn force-sent ETH.
+A toilet-themed web app that lets anyone call the permissionless `flush()` function on the [BETH](https://beth.ethcf.org/) contract to burn force-sent ETH.
 
 ![Flush ETH Screenshot](./public/screenshot.png)
 
@@ -8,16 +8,7 @@ A fun, toilet-themed web app that lets anyone call the permissionless `flush()` 
 
 The BETH contract can receive force-sent ETH (via `selfdestruct` or other means) that doesn't mint tokens. The `flush()` function is **permissionless** - anyone can call it to forward that ETH to the burn address `0x0000...0000`.
 
-This site makes flushing that ETH fun with an animated toilet bowl, floating ETH logos, and flushing sound effects! 💧
-
-## Features
-
-- 🚽 Interactive toilet bowl animation with top-down view
-- 💧 Dynamic ETH logos that float in the water (1 per 0.001 ETH)
-- 🔊 Realistic toilet flushing sound
-- 🔥 Real-time display of flushable ETH
-- 🌐 Support for Ethereum Mainnet and Sepolia testnet
-- 🎨 Built with Next.js 15, TypeScript, and Tailwind CSS
+This site makes flushing that ETH easy.
 
 ## BETH Contract Addresses
 
