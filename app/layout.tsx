@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Flush ETH - Web3 Wallet Connection",
-  description: "Connect your web3 wallet with RainbowKit",
+  title: "Flush ETH 🚽 - Burn Your ETH",
+  description: "Flush your ETH down the drain! Call the permissionless flush() function on the BETH contract.",
 };
 
 export default function RootLayout({
