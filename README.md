@@ -51,25 +51,8 @@ Open [http://localhost:3000](http://localhost:3000) to see the app.
 1. **Connect Your Wallet** - Click "Connect Wallet" in the top-right
 2. **View Flushable ETH** - See how much force-sent ETH is ready to flush
 3. **Hit the Flush Button** - Click the 💧 Flush button to call the `flush()` function
-4. **Watch the Animation** - Enjoy the toilet flushing animation and sound!
 
 The number of floating ETH logos corresponds to the amount of flushable ETH (1 logo per 0.001 ETH).
-
-## Tech Stack
-
-- **Framework:** [Next.js 15](https://nextjs.org/)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Web3:** [RainbowKit](https://www.rainbowkit.com/), [Wagmi](https://wagmi.sh/), [Viem](https://viem.sh/)
-
-## Deployment
-
-Deploy easily on [Vercel](https://vercel.com):
-
-1. Push to GitHub
-2. Import repository in Vercel
-3. Add `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` environment variable
-4. Deploy!
 
 ## License
 
